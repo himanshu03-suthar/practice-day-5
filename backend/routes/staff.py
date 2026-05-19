@@ -1,7 +1,7 @@
-a,b,c=int(input("enter a number:"))
-if a>b>c:
-    print("a is greater than b and c")
-elif b>a>c:
-    print("b is greater than a and c")
-else:
-    print("c is greater than a and b")
+﻿from fastapi import APIRouter
+
+router = APIRouter(prefix="/staff", tags=["Staff"])
+
+@router.get("/")
+def get_staff():
+    return {"msg": "All staff"}
