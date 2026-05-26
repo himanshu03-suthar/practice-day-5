@@ -2,7 +2,9 @@ from fastapi import FastAPI
 from pydantic import BaseModel
 from fastapi.middleware.cors import CORSMiddleware
 from dotenv import load_dotenv
-from langchain_openai import ChatOpenAI
+from langchain_google_genai import ChatGoogleGenerativeAI
+from dotenv import load_dotenv
+import os
 
 app=FastAPI()
 
@@ -17,11 +19,12 @@ app.add_middleware(
 
 load_dotenv()
 
-
-model=ChatOpenAI(
-    model="gpt-3.5-turbo",
+model=ChatGoogleGenerativeAI(
+    model="gemini-2.0-flash",
+    google_api_key=os.getenv("GEMINI_API_KEY"),
     temperature=0.9
 )
+
 
 @app.get("/")
 def home():
@@ -34,9 +37,11 @@ class chatRequest(BaseModel):
 
 @app.post("/CHAT")
 def chat(request:chatRequest):
-    
+
     print(request.message)
 
+    response=model.invoke(request.message)
+
     return{
-        "response":"Backend successfully connected"
+        "response":response.content
     }
