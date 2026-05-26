@@ -26,6 +26,7 @@ model=ChatGoogleGenerativeAI(
 )
 
 
+
 @app.get("/")
 def home():
     return{
@@ -36,12 +37,20 @@ class chatRequest(BaseModel):
     message:str
 
 @app.post("/CHAT")
-def chat(request:chatRequest):
+def chat(request: chatRequest):
 
-    print(request.message)
+    try:
+        print(request.message)
 
-    response=model.invoke(request.message)
+        response = model.invoke(request.message)
 
-    return{
-        "response":response.content
-    }
+        return {
+            "response": response.content
+        }
+
+    except Exception as e:
+        print("ERROR:", e)
+
+        return {
+            "response": f"Error aayi: {str(e)}"
+        }
