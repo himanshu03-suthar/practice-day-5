@@ -1,0 +1,15 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Auto Git Push",
+      "type": "shell",
+      "command": "git add . && git commit -m 'Auto-commit: ${datetime}' && git push origin main",
+      "problemMatcher": [],
+      "presentation": {
+        "reveal": "silent",
+        "panel": "shared"
+      }
+    }
+  ]
+}

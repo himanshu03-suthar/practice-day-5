@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>NOVA AI Chat</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@600;700&family=Nunito:wght@400;500;600&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <div class="blob blob-1"></div>
+  <div class="blob blob-2"></div>
+
+  <div class="chat-wrapper">
+
+    <div class="chat-header">
+      <div class="header-left">
+        <div class="ai-avatar">&#9670;</div>
+        <div class="header-info">
+          <h1 class="brand-name">NOVA <span>AI</span></h1>
+          <div class="status-row">
+            <span class="status-dot" id="statusDot"></span>
+            <span class="status-text" id="statusText">Checking connection...</span>
+          </div>
+        </div>
+      </div>
+      <div class="header-tabs">
+        <button class="tab-btn active" id="tabChat" onclick="switchTab('chat')">Chat</button>
+        <button class="tab-btn" id="tabQuiz" onclick="switchTab('quiz')">Quiz</button>
+      </div>
+      <div class="header-dots">
+        <span style="background:#ef4444"></span>
+        <span style="background:#f59e0b"></span>
+        <span style="background:#22c55e"></span>
+      </div>
+    </div>
+
+    <!-- CHAT VIEW -->
+    <div class="panel active" id="chatPanel">
+      <div class="chat-messages" id="chatMessages">
+        <div class="msg-row ai-row">
+          <div class="avatar ai-av">&#9670;</div>
+          <div class="bubble ai-bubble">
+            Namaste! &#128075; Main aapka <strong>NOVA AI</strong> assistant hoon.<br/>
+            Aap mujhse kuch bhi pooch sakte hain!
+          </div>
+        </div>
+        <div class="suggestions" id="suggestions">
+          <span onclick="fillInput('Python kya hai?')">Python kya hai?</span>
+          <span onclick="fillInput('FastAPI explain karo')">FastAPI explain karo</span>
+          <span onclick="fillInput('Internship tips do')">Internship tips do</span>
+          <span onclick="fillInput('AI future kya hai?')">AI future kya hai?</span>
+        </div>
+      </div>
+
+      <div class="chat-input-area">
+        <div class="input-box">
+          <textarea
+            id="userInput"
+            placeholder="Apna message likhein... (Enter to send)"
+            rows="1"
+            oninput="autoResize(this)"
+            onkeydown="handleKey(event)"
+          ></textarea>
+          <button class="send-btn" id="sendBtn" onclick="sendMessage()">
+            <svg id="sendIcon" width="18" height="18" viewBox="0 0 24 24" fill="none"
+              stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="22" y1="2" x2="11" y2="13"/>
+              <polygon points="22 2 15 22 11 13 2 9 22 2"/>
+            </svg>
+            <span id="loadIcon" class="hidden">&#8987;</span>
+          </button>
+        </div>
+        <p class="footer-text">NOVA AI &bull; localhost:8000 &bull; Press Enter to send</p>
+      </div>
+    </div>
+
+    <!-- QUIZ VIEW -->
+    <div class="panel" id="quizPanel">
+      <div class="quiz-body" id="quizBody">
+
+        <div class="quiz-setup" id="quizSetup">
+          <h2>AI Quiz Generator</h2>
+          <p>Koi bhi topic daalo — groq aapke liye MCQ quiz banayega.</p>
+          <div class="quiz-form">
+            <input type="text" id="quizTopic" placeholder="e.g. Python, History, AI..." />
+            <select id="quizCount">
+              <option value="3">3 Questions</option>
+              <option value="5" selected>5 Questions</option>
+              <option value="7">7 Questions</option>
+              <option value="10">10 Questions</option>
+            </select>
+            <button class="quiz-gen-btn" id="quizGenBtn" onclick="generateQuiz()">Generate Quiz</button>
+          </div>
+        </div>
+
+        <div class="quiz-questions hidden" id="quizQuestions"></div>
+
+        <div class="quiz-result hidden" id="quizResult">
+          <h3 id="resultTitle"></h3>
+          <p id="resultScore"></p>
+          <button class="quiz-gen-btn" onclick="resetQuiz()">Naya Quiz</button>
+        </div>
+
+      </div>    </div>
+
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
